@@ -18,9 +18,6 @@ module.exports = { add: add, list: list, find: find };
 
 
 
-
-
-
 const randArrayEl = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };

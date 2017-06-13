@@ -5,8 +5,9 @@
 </div>
 <div class="row">
   <div class="col-md-3">
-    <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
-    <b>Brian Bohme</b><br> 100 followers
+
+    <img src="https://s-media-cache-ak0.pinimg.com/736x/c6/4c/e0/c64ce05bf01ccb3ea8af44de5980cbe4.jpg" height="100" width="100"><br>
+    <a href="/users/brian%20bohme">Brian Bohme</a><br> 100 followers
   </div>
   <div class="col-md-9">
 
@@ -22,7 +23,6 @@
     </form>
 
 
-    <!-- display tweets here -->
     <ul class="timeline">
       {% for tweet in tweets %}
       <li>
@@ -32,9 +32,12 @@
               var randomNumberBetween0and19 = Math.floor(Math.random() * 150) + 200;
               return "http://placekitten.com/" + randomNumberBetween0and19 + "/" + randomNumberBetween0and19;
             };
+          </script>
+          <img src="http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg" id="image"
+          />
+          <script type="text/javascript">
             document.getElementById('image').src = randomImage();
           </script>
-          <img src="nothing.jpg" id="image" />
           <div class="hover">
             <div class="icon-twitter"></div>
           </div>
