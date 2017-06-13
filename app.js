@@ -3,6 +3,7 @@ const app = express();
 const chalk = require('chalk');
 const nunjucks = require('nunjucks');
 const routes = require('./routes');
+const bodyParser = require('body-parser');
 
 var verb = chalk.bold.red;
 var route = chalk.dim.green;
@@ -40,7 +41,9 @@ app.get('/people', function (req, res) {
 
 app.listen(3000, function () {
   console.log('server listening')
-})
+});
+
+
 
 /*
 var locals = {
