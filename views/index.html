@@ -1,36 +1,55 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block content %}
 
-{% block content %}
-
-  <div class="page-header">
-    <h1>Welcome to Twitter.js!</h1>
+<div class="page-header">
+  <h1>Welcome to Twitter.js!</h1>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
+    <b>Brian Bohme</b><br> 100 followers
   </div>
-  <div class="row">
-    <div class="col-md-3">
-      <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
-      <b>Your Name</b><br>
-      100 followers
-    </div>
-    <div class="col-md-9">
+  <div class="col-md-9">
 
-      {% if showForm %}
-  <form action="/tweets" method="POST">
-    <label for="name_field">Name:</label>
-    <input name="name" type="text" id="name_field" />
+    <form action="/tweets" method="POST">
+      <label for="name_field">Name:</label> {% if userNamed %}
+      <input name="name" value="default" type="text" id="name_field" /> {% else %}
+      <input name="name" type="text" id="name_field" /> {% endif %}
 
-    <label for="text_field">Text:</label>
-    <input name="text" type="text" id="text_field" style="width: 350px;" />
+      <label for="text_field">Text:</label>
+      <input name="text" type="text" id="text_field" style="width: 350px;" />
 
-    <input type="submit" value="Submit" />
-  </form>
-{% endif %}
+      <input type="submit" value="Tweet" />
+    </form>
 
-      <!-- display tweets here -->
+
+    <!-- display tweets here -->
+    <ul class="timeline">
       {% for tweet in tweets %}
-        <li><a href="/users/{{tweet.name}}">{{tweet.name}}</a> - {{tweet.content}}</li>
+      <li>
+        <div class="avatar">
+          <script type="text/javascript">
+            function randomImage() {
+              var randomNumberBetween0and19 = Math.floor(Math.random() * 150) + 200;
+              return "http://placekitten.com/" + randomNumberBetween0and19 + "/" + randomNumberBetween0and19;
+            };
+            document.getElementById('image').src = randomImage();
+          </script>
+          <img src="nothing.jpg" id="image" />
+          <div class="hover">
+            <div class="icon-twitter"></div>
+          </div>
+        </div>
+        <div class="bubble-container">
+          <div class="bubble">
+            <a href="/users/{{tweet.name}}">@{{ tweet.name }}</a><br /> {{ tweet.content }}
+          </div>
+          <div class="arrow"></div>
+        </div>
+      </li>
       {% endfor %}
+    </ul>
 
-    </div>
   </div>
+</div>
 
 {% endblock %}

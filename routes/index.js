@@ -4,27 +4,33 @@ const router = express.Router();
 const tweetBank = require('../tweetBank');
 const bodyParser = require('body-parser');
 
-
-// parse application/x-www-form-urlencoded
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+module.exports = function (io) {
 
 
-router.get('/', function (req, res) {
-  let tweets = tweetBank.list();
-  res.render( 'index', { tweets: tweets, showForm: true } );
-});
+  // parse application/x-www-form-urlencoded
+  var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-router.get('/users/:name', function(req, res) {
-  var name = req.params.name;
-  var tweets = tweetBank.find( {name: name} );
-  res.render( 'index', { tweets: tweets } );
-});
 
-router.post('/tweets', urlencodedParser, function(req, res) {
-  var name = req.body.name;
-  var text = req.body.text;
-  tweetBank.add(name, text);
-  res.redirect('/');
-});
+  router.get('/', function (req, res) {
+    let tweets = tweetBank.list();
+    res.render('index', { tweets: tweets });
+  });
 
-module.exports = router;
+  router.get('/users/:name', function (req, res) {
+    var name = req.params.name;
+    var tweets = tweetBank.find({ name: name });
+    res.render('index', { tweets: tweets, userNamed: true });
+  });
+
+  router.post('/tweets', urlencodedParser, function (req, res) {
+    var name = req.body.name;
+    var text = req.body.text;
+    tweetBank.add(name, text);
+    io.sockets.emit('newTweet', {name : text});
+    res.redirect('/');
+  });
+
+  return router;
+
+}
+
